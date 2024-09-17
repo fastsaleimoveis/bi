@@ -1,101 +1,238 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import {
+  Card,
+  Text,
+  Title,
+  Container,
+  SimpleGrid,
+  Group,
+  ThemeIcon,
+} from '@mantine/core';
+import {
+  IconBuilding,
+  IconUser,
+  IconHome,
+  IconChartBar,
+  IconCurrencyDollar,
+} from '@tabler/icons-react';
+
+interface DataType {
+  imobiliarias_total: string;
+  corretores_total: string;
+  construtoras_total: string;
+  imobiliarias_premium: string;
+  imobiliarias_start: string;
+  corretores_premium: string;
+  corretores_start: string;
+  imoveis_vendidos_ext_value: string;
+  imoveis_vendidos_value: string;
+  total_valor_unidades: string;
+  imoveis_valor: string;
+  media_imoveis_novos: string;
+  media_valor_imoveis_novos: string;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [data, setData] = useState<DataType | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  useEffect(() => {
+    axios
+      .get<DataType>('https://dev.fastsaleimoveis.com.br/api/get-count-temp')
+      .then((response) => {
+        setData(response.data);
+        console.log(response.data);
+      });
+  }, []);
+
+  if (!data) {
+    return <div>Carregando...</div>;
+  }
+
+  const totalUsuarios =
+    parseInt(data.corretores_total, 10) +
+    parseInt(data.imobiliarias_total, 10) +
+    parseInt(data.construtoras_total, 10);
+
+  const totalAssinantes =
+    parseInt(data.imobiliarias_premium, 10) +
+    parseInt(data.imobiliarias_start, 10) +
+    parseInt(data.corretores_premium, 10) +
+    parseInt(data.corretores_start, 10);
+
+  const imoveisVendidos =
+    (parseInt(data.imoveis_vendidos_ext_value, 10) +
+      parseInt(data.imoveis_vendidos_value, 10)) /
+    100;
+
+  const unidadesDisponiveis = parseInt(data.total_valor_unidades, 10) / 100;
+  const imoveisDisponiveis = parseInt(data.imoveis_valor, 10) / 100;
+  const valorTotalImoveis =
+    (parseInt(data.total_valor_unidades, 10) +
+      parseInt(data.imoveis_valor, 10)) /
+    100;
+
+  const mediaImoveisNovos = parseInt(data.media_imoveis_novos, 10);
+  const valorMedioMensal = parseFloat(data.media_valor_imoveis_novos) / 100;
+
+  return (
+    <Container size="xl" py="md">
+      <Title mb="lg">
+        Fast Sale
+      </Title>
+      <SimpleGrid cols={3} spacing="lg">
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="blue" variant="light">
+                <IconBuilding size={24} />
+              </ThemeIcon>
+              <Text>Imobiliárias</Text>
+            </Group>
+            <Title order={2}>{data.imobiliarias_total}</Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="green" variant="light">
+                <IconUser size={24} />
+              </ThemeIcon>
+              <Text>Corretores</Text>
+            </Group>
+            <Title order={2}>{data.corretores_total}</Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="teal" variant="light">
+                <IconBuilding size={24} />
+              </ThemeIcon>
+              <Text>Construtoras</Text>
+            </Group>
+            <Title order={2}>{data.construtoras_total}</Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group  align="center">
+            <Group>
+              <ThemeIcon color="indigo" variant="light">
+                <IconUser size={24} />
+              </ThemeIcon>
+              <Text>Total de Usuários</Text>
+            </Group>
+            <Title order={2}>{totalUsuarios}</Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="orange" variant="light">
+                <IconUser size={24} />
+              </ThemeIcon>
+              <Text>Assinantes</Text>
+            </Group>
+            <Title order={2}>{totalAssinantes}</Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="red" variant="light">
+                <IconCurrencyDollar size={24} />
+              </ThemeIcon>
+              <Text>Imóveis Vendidos</Text>
+            </Group>
+            <Title order={2}>
+              R${' '}
+              {imoveisVendidos.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+              })}
+            </Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="cyan" variant="light">
+                <IconHome size={24} />
+              </ThemeIcon>
+              <Text>Unidades Disponíveis</Text>
+            </Group>
+            <Title order={2}>
+              R${' '}
+              {unidadesDisponiveis.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+              })}
+            </Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="grape" variant="light">
+                <IconHome size={24} />
+              </ThemeIcon>
+              <Text>Imóveis Disponíveis</Text>
+            </Group>
+            <Title order={2}>
+              R${' '}
+              {imoveisDisponiveis.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+              })}
+            </Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group align="center">
+            <Group>
+              <ThemeIcon color="pink" variant="light">
+                <IconHome size={24} />
+              </ThemeIcon>
+              <Text>Valor Total de Imóveis</Text>
+            </Group>
+            <Title order={2}>
+              R${' '}
+              {valorTotalImoveis.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+              })}
+            </Title>
+          </Group>
+        </Card>
+
+        <Card shadow="sm" p="lg" radius="md">
+          <Group>
+            <Group align="center">
+              <Group>
+                <ThemeIcon color="lime" variant="light">
+                  <IconChartBar size={24} />
+                </ThemeIcon>
+                <Text>Média de Novos Imóveis/mês (3 meses)</Text>
+              </Group>
+              <Title order={2}>{mediaImoveisNovos}</Title>
+            </Group>
+            <Text size="sm" color="dimmed">
+              Valor Médio Mensal:{' '}
+              R${' '}
+              {valorMedioMensal.toLocaleString('pt-br', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </Text>
+          </Group>
+        </Card>
+      </SimpleGrid>
+    </Container>
   );
 }
