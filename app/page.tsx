@@ -18,6 +18,7 @@ import {
   IconChartBar,
   IconCurrencyDollar,
 } from '@tabler/icons-react';
+import { LineChart } from '@mantine/charts';
 
 interface DataType {
   imobiliarias_total: string;
@@ -33,6 +34,10 @@ interface DataType {
   imoveis_valor: string;
   media_imoveis_novos: string;
   media_valor_imoveis_novos: string;
+  shares_mes: { [key: number]: number }[];
+  talks_mes: { [key: number]: number }[];
+  views_mes: { [key: number]: number }[];
+  downloads_mes: { [key: number]: number }[];
 }
 
 export default function Home() {
@@ -77,12 +82,44 @@ export default function Home() {
   const mediaImoveisNovos = parseInt(data.media_imoveis_novos, 10);
   const valorMedioMensal = parseFloat(data.media_valor_imoveis_novos) / 100;
 
+  const combineChartData = () => {
+    const months = [
+      'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+    ];
+
+    return months.map((month, index) => ({
+      date: month,
+      Compartilhamentos: data.shares_mes[index] ? Object.values(data.shares_mes[index])[0] : 0,
+      Conversas: data.talks_mes[index] ? Object.values(data.talks_mes[index])[0] : 0,
+      Visualizações: data.views_mes[index] ? Object.values(data.views_mes[index])[0] : 0,
+      Downloads: data.downloads_mes[index] ? Object.values(data.downloads_mes[index])[0] : 0,
+    }));
+  };
+
+  const chartData = combineChartData();
+
   return (
     <Container size="xl" py="md">
-      <Title mb="lg">
-        Fast Sale
-      </Title>
-      <SimpleGrid cols={3} spacing="lg">
+      {/* <Title mb="lg">Fast Sale</Title> */}
+      <SimpleGrid cols={5} spacing="lg">
+
+        <Card shadow="sm" p="lg" radius="md" style={{ gridColumn: 'span 5' }}>
+          <Title order={4}>Estatísticas por Mês (2024)</Title>
+          <LineChart
+            h={300}
+            data={chartData}
+            dataKey="date"
+            series={[
+              { name: 'Compartilhamentos', color: 'indigo.6' },
+              { name: 'Conversas', color: 'blue.6' },
+              { name: 'Visualizações', color: 'teal.6' },
+              { name: 'Downloads', color: 'red.6' },
+            ]}
+            curveType="linear"
+          />
+        </Card>
+
+        {/* Restante dos Cards */}
         <Card shadow="sm" p="lg" radius="md">
           <Group align="center">
             <Group>
@@ -120,7 +157,7 @@ export default function Home() {
         </Card>
 
         <Card shadow="sm" p="lg" radius="md">
-          <Group  align="center">
+          <Group align="center">
             <Group>
               <ThemeIcon color="indigo" variant="light">
                 <IconUser size={24} />
@@ -151,7 +188,7 @@ export default function Home() {
               </ThemeIcon>
               <Text>Imóveis Vendidos</Text>
             </Group>
-            <Title order={2}>
+            <Title order={4}>
               R${' '}
               {imoveisVendidos.toLocaleString('pt-br', {
                 minimumFractionDigits: 2,
@@ -168,7 +205,7 @@ export default function Home() {
               </ThemeIcon>
               <Text>Unidades Disponíveis</Text>
             </Group>
-            <Title order={2}>
+            <Title order={4}>
               R${' '}
               {unidadesDisponiveis.toLocaleString('pt-br', {
                 minimumFractionDigits: 2,
@@ -185,7 +222,7 @@ export default function Home() {
               </ThemeIcon>
               <Text>Imóveis Disponíveis</Text>
             </Group>
-            <Title order={2}>
+            <Title order={4}>
               R${' '}
               {imoveisDisponiveis.toLocaleString('pt-br', {
                 minimumFractionDigits: 2,
@@ -202,7 +239,7 @@ export default function Home() {
               </ThemeIcon>
               <Text>Valor Total de Imóveis</Text>
             </Group>
-            <Title order={2}>
+            <Title order={4}>
               R${' '}
               {valorTotalImoveis.toLocaleString('pt-br', {
                 minimumFractionDigits: 2,
@@ -218,12 +255,12 @@ export default function Home() {
                 <ThemeIcon color="lime" variant="light">
                   <IconChartBar size={24} />
                 </ThemeIcon>
-                <Text>Média de Novos Imóveis/mês (3 meses)</Text>
+                <Text>Imóveis/mês (3 m)</Text>
               </Group>
-              <Title order={2}>{mediaImoveisNovos}</Title>
+              <Title order={4}>{mediaImoveisNovos}</Title>
             </Group>
             <Text size="sm" color="dimmed">
-              Valor Médio Mensal:{' '}
+              Valor:{' '}
               R${' '}
               {valorMedioMensal.toLocaleString('pt-br', {
                 minimumFractionDigits: 2,
