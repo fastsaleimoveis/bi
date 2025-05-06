@@ -56,7 +56,7 @@ export const OperationComponent = () => {
               height={100}
               alt="Logo Fast Sale"
             />
-            <h1 className="text-2xl text-gray-800 font-bold uppercase">Dashboard Operacional - {nomeMes}</h1>
+            <h1 className="text-2xl text-gray-800 font-bold uppercase">Dashboard Comercial - {nomeMes}</h1>
 
             <Link href="/login"><Button size="md">Login</Button></Link>
         </div>
