@@ -21,11 +21,21 @@ export const OperationComponent = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    instance
-      .get('/collaborators')
-      .then((res) => setData(res.data))
-      .catch((err) => console.error('Erro ao carregar dashboard:', err))
-      .finally(() => setLoading(false));
+    const fetchData = () => {
+      instance
+        .get('/collaborators')
+        .then((res) => setData(res.data))
+        .catch((err) => console.error('Erro ao carregar dashboard:', err))
+        .finally(() => setLoading(false));
+    };
+  
+    fetchData(); // primeira chamada imediata
+  
+    const interval = setInterval(() => {
+      fetchData();
+    }, 60 * 2000); // 1 minuto
+  
+    return () => clearInterval(interval); // limpa intervalo ao desmontar
   }, []);
 
   if (loading) return <Loader />;
