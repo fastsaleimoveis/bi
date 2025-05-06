@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import {
-  Button,
   Loader,
 } from '@mantine/core';
 import instance from '@/app/lib/axios';
@@ -10,7 +9,7 @@ import { BiSdrCard } from '../biSdrCard';
 import { BiCloserCard } from '../biCloserCard';
 import { MetaProgress } from '../MetaProgress';
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { TotalComercial } from '../TotalComerical';
 
 
