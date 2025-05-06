@@ -50,7 +50,7 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
                 {dataNumbers.map((item, index) => (
                     <div className="flex flex-col flex-1 min-w-[120px]" key={index}>
                         <label className="text-green-800 text-xs text-center mb-1 h-[15px]">{item.label}</label>
-                        <span className="bg-green-200 text-gray-600 font-bold text-center text-2xl rounded-lg w-full flex items-center justify-center">{item.number}</span>
+                        <span className="py-1 bg-green-200 border text-gray-600 font-bold text-center text-xl rounded-lg w-full flex items-center justify-center">{item.number}</span>
                     </div>
                 ))}
             </div>

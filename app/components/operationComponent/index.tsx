@@ -19,23 +19,30 @@ const meta = 100000
 export const OperationComponent = () => {
   const [data, setData] = useState<User[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const fetchData = () => {
       instance
         .get('/collaborators')
-        .then((res) => setData(res.data))
+        .then((res) => {
+          setData(res.data);
+          setLastUpdated(new Date());
+        })
         .catch((err) => console.error('Erro ao carregar dashboard:', err))
         .finally(() => setLoading(false));
     };
-  
-    fetchData(); // primeira chamada imediata
-  
-    const interval = setInterval(() => {
-      fetchData();
-    }, 60 * 2000); // 1 minuto
-  
-    return () => clearInterval(interval); // limpa intervalo ao desmontar
+
+    fetchData(); // primeira chamada
+
+    const fetchInterval = setInterval(fetchData, 60 * 1000); // 1 minuto
+    const timeInterval = setInterval(() => setCurrentTime(new Date()), 1000); // atualiza relógio atual
+
+    return () => {
+      clearInterval(fetchInterval);
+      clearInterval(timeInterval);
+    };
   }, []);
 
   if (loading) return <Loader />;
@@ -60,15 +67,34 @@ export const OperationComponent = () => {
     data &&
     <div className="bg-white fixed w-full h-full overflow-hidden inset-0 p-4">
         <div className="flex items-center justify-between pb-4">
+          <span className="w-[240px]">
             <Image
               src="/logo-dark.png"
               width={140}
               height={100}
               alt="Logo Fast Sale"
             />
+            </span>
             <h1 className="text-2xl text-gray-800 font-bold uppercase">Dashboard Comercial - {nomeMes}</h1>
 
-            <Link href="/login"><Button size="md">Login</Button></Link>
+            <div className="text-right text-sm font-semibold text-gray-600 leading-tight">
+              <div>Atualizado: {lastUpdated?.toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              }) || '--'}</div>
+              <div>Agora: {currentTime.toLocaleString('pt-BR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+              })}</div>
+            </div>
         </div>
 
         <span className="block w-full h-px bg-green-700 mb-4"></span>

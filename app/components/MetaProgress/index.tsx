@@ -27,7 +27,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
                 },
             ]}
             getBarColor={(value) =>
-                value === atingido ? 'green.6' : 'red.6'
+                value === atingido ? 'green.5' : 'green.9'
             }
             yAxisProps={{
                 tick: { fill: 'gray.8', fontSize: 12 },
