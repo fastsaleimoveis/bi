@@ -42,7 +42,7 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
             <div className="flex gap-4 items-center size-2/4">
                 <Avatar size={80} color="green" />
                 <div className="">
-                    <h5 className="text-[#16A34A]font-bold text-[18px]">Closer</h5>
+                    <h5 className="text-[#16A34A] font-bold text-[18px]">Closer</h5>
                     <h2 className="text-[#065F46] font-bold text-[26px] -mt-2 whitespace-nowrap">{name}</h2>
                 </div>
             </div>
