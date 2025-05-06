@@ -1,0 +1,17 @@
+.dashboard-bi{
+    background-color: #16a34a;
+    @apply
+    bg-green-600 fixed w-full h-full overflow-hidden inset-0
+}
+
+.dashboard-bi .dashboard-bi-title{
+    
+}
+
+.dashboard-bi .dashboard-bi-body{
+    
+}
+
+.dashboard-bi .dashboard-bi-body .dashboard-bi-col{
+    
+}
