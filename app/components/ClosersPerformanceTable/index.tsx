@@ -51,7 +51,7 @@ export const ClosersPerformanceTable = ({ closers }: ClosersPerformanceTableProp
             <th>NOME</th>
             <th>REUNIÕES</th>
             <th>EM NEGOCIAÇÃO</th>
-            <th>PERDIDO</th>
+            <th>NÃO VENDA</th>
             <th>ACEITE VERBAL</th>
             <th>LINK PAGAMENTO</th>
             <th>VENDAS</th>

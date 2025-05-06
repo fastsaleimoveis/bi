@@ -55,7 +55,7 @@ export const ClosersIndicadoresCards = ({ data }: ClosersIndicadoresCardsProps) 
         const indicadores: Indicator[] = [
           { label: 'Reunião Realizada', number: indicator.meetings_held || 0, icon: <IconCalendarCheck />, color: 'blue' },
           { label: 'Em Negociação', number: indicator.in_negotiation || 0, icon: <IconHandClick />, color: 'yellow' },
-          { label: 'Perdido', number: indicator.lost || 0, icon: <IconX />, color: 'gray' },
+          { label: 'Não Venda', number: indicator.lost || 0, icon: <IconX />, color: 'gray' },
           { label: 'Aceite Verbal', number: indicator.accept_verbal || 0, icon: <IconFileDollar />, color: 'teal' },
           { label: 'Link Pagamento', number: indicator.link_sent || 0, icon: <IconHandClick />, color: 'cyan' },
           { label: 'Vendas', number: indicator.sales || 0, icon: <IconShoppingCartCheck />, color: 'green' },

@@ -11,6 +11,7 @@ import { BiCloserCard } from '../biCloserCard';
 import { MetaProgress } from '../MetaProgress';
 import Image from 'next/image';
 import Link from 'next/link';
+import { TotalComercial } from '../TotalComerical';
 
 
 const meta = 100000
@@ -47,15 +48,15 @@ export const OperationComponent = () => {
 
   return (
     data &&
-    <div className="bg-green-800 fixed w-full h-full overflow-hidden inset-0 p-4">
+    <div className="bg-white fixed w-full h-full overflow-hidden inset-0 p-4">
         <div className="flex items-center justify-between pb-4">
             <Image
-              src="/logo-light.png"
+              src="/logo-dark.png"
               width={140}
               height={100}
               alt="Logo Fast Sale"
             />
-            <h1 className="text-2xl text-white font-bold uppercase">Dashboard Operacional - {nomeMes}</h1>
+            <h1 className="text-2xl text-gray-800 font-bold uppercase">Dashboard Operacional - {nomeMes}</h1>
 
             <Link href="/login"><Button size="md">Login</Button></Link>
         </div>
@@ -80,8 +81,7 @@ export const OperationComponent = () => {
             </div>
             <div className="w-[30%] flex flex-col gap-12">
                 <MetaProgress meta={meta} atingido={atingido}/>
-
-                {/* <Efficiency vendas={vendas + 1} reunioes={reunioes + 10} /> */}
+                <TotalComercial data={data.filter(users => users.type)}/>
             </div>
             <div className="w-[35%] flex flex-col gap-4 flex-wrap h-full">
               {data
@@ -97,10 +97,6 @@ export const OperationComponent = () => {
                     <BiCloserCard key={index} data={currentIndicator || null} name={item.name} />
                   );
                 })}
-
-                {/* <TotalComercial data={data}/> */}
-
-                {/* <LeadsOrigin/> */}
             </div>
         </div>
 

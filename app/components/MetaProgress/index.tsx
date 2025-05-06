@@ -12,7 +12,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
 
   return (
     <div>
-      <h3 className="text-white font-semibold mb-4 text-lg">Progresso Meta</h3>
+      <h3 className="text-gray-800 font-semibold mb-4 text-lg">Progresso Meta</h3>
         <BarChart
             h={360}
             data={[
@@ -20,7 +20,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
                 { name: 'Restante', value: restante },
             ]}
             dataKey="name"
-            textColor="white"
+            textColor="gray.8"
             series={[
                 {
                     name: 'value',
@@ -30,7 +30,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
                 value === atingido ? 'green.6' : 'red.6'
             }
             yAxisProps={{
-                tick: { fill: 'white', fontSize: 12 },
+                tick: { fill: 'gray.8', fontSize: 12 },
                 domain: [0, meta],
                 tickFormatter: (val: number) =>
                 val.toLocaleString('pt-BR', {
@@ -40,7 +40,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
                 }),
             }}
             xAxisProps={{
-                tick: { fill: 'white', fontSize: 12 },
+                tick: { fill: 'gray.8', fontSize: 12 },
             }}
             valueFormatter={(val: number) =>
                 val.toLocaleString('pt-BR', {
@@ -51,7 +51,7 @@ export const MetaProgress = ({ meta, atingido }: MetaProgressProps) => {
             }
             withBarValueLabel
             valueLabelProps={{
-                fill: 'white',
+                fill: 'gray.8',
                 fontSize: 14,
                 fontWeight: 600,
                 position: 'top',
