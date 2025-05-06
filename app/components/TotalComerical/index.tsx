@@ -111,11 +111,11 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
       </div>
       <div className="flex justify-between gap-2 flex-wrap w-full">
         {dataNumbers.map((item, index) => (
-          <div className="flex flex-col flex-1 min-w-[100px] " key={index}>
+          <div className="flex flex-col flex-1 min-w-[140px] " key={index}>
             <label className="	text-[#065F46] text-xs text-center mb-1 h-[15px]">
               {item.label}
             </label>
-            <span className="border bg-white text-[#4B5563] font-bold text-center text-2xl rounded-lg w-full flex items-center justify-center h-[60px]">
+            <span className="border bg-white text-[#4B5563] font-bold text-center text-xl rounded-lg w-full flex items-center justify-center h-[40px]">
               {item.number}
             </span>
           </div>
