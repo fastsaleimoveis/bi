@@ -1,39 +1,63 @@
 import { Avatar, Table, Card, Text } from '@mantine/core';
 
-interface SDRData {
-  nome: string;
-  foto: string | null;
-  ligacoes_realizadas: number;
-  contatos_realizados: number;
-  contatos_efetivos: number;
-  ligacoes_efetivas:number;
-  agendamentos: number;
+interface User {
+  name: string;
+  photo_url: string;
+  indicators: Indicators[];
+}
+
+interface Indicators {
+  contacts_made: number;
+  effective_contacts: number;
+  phone_calls_made: number;
+  effective_phone_calls: number;
+  appointments: number;
+  no_show: number;
+  month: number;
+  year: number;
 }
 
 interface SDRPerformanceTableProps {
-  sdrs: SDRData[];
+  sdrs: User[];
 }
 
 export const SDRPerformanceTable = ({ sdrs }: SDRPerformanceTableProps) => {
-  const rows = sdrs.map((sdr, index) => {
-    const conversao =
-      sdr.contatos_efetivos > 0
-        ? ((sdr.agendamentos / sdr.contatos_efetivos) * 100).toFixed(1) + '%'
-        : '0.0%';
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
+  const rows = sdrs.map((user, index) => {
+    const indicator = user.indicators.find(
+      (ind) => ind.month === currentMonth && ind.year === currentYear
+    );
+
+    const contatosRealizados = indicator?.contacts_made ?? 0;
+    const contatosEfetivos = indicator?.effective_contacts ?? 0;
+    const ligacoesRealizadas = indicator?.phone_calls_made ?? 0;
+    const ligacoesEfetivas = indicator?.effective_phone_calls ?? 0;
+    const agendamentos = indicator?.appointments ?? 0;
+    const noShow = indicator?.no_show ?? 0;
+
+    const baseEfetivos = contatosEfetivos + ligacoesEfetivas;
+
+    const eficiencia =
+      baseEfetivos > 0 ? Math.round((agendamentos * 100) / baseEfetivos) + '%' : '0%';
 
     return (
       <tr key={index}>
         <td style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Avatar radius="xl" src={sdr.foto} alt={sdr.nome}>
-            {sdr.nome.charAt(0)}
+          <Avatar radius="xl" src={user.photo_url} alt={user.name}>
+            {user.name.charAt(0)}
           </Avatar>
-          <Text size="sm">{sdr.nome}</Text>
+          <Text size="sm">{user.name}</Text>
         </td>
-        <td className="text-center">{sdr.contatos_realizados ?? 0}</td>
-        <td className="text-center">{sdr.ligacoes_realizadas ?? 0}</td>
-        <td className="text-center">{(sdr.contatos_efetivos + sdr.ligacoes_efetivas) ?? 0}</td>
-        <td className="text-center">{sdr.agendamentos ?? 0}</td>
-        <td className="text-center">{conversao}</td>
+        <td className="text-center">{contatosRealizados}</td>
+        <td className="text-center">{contatosEfetivos}</td>
+        <td className="text-center">{ligacoesRealizadas}</td>
+        <td className="text-center">{ligacoesEfetivas}</td>
+        <td className="text-center">{agendamentos}</td>
+        <td className="text-center">{noShow}</td>
+        <td className="text-center">{eficiencia}</td>
       </tr>
     );
   });
@@ -41,17 +65,19 @@ export const SDRPerformanceTable = ({ sdrs }: SDRPerformanceTableProps) => {
   return (
     <Card shadow="sm" radius="md" padding="lg" withBorder>
       <Text fw={600} mb="md">
-        Desempenho SDR
+        Desempenho SDR - {now.toLocaleString('pt-BR', { month: 'long' }).toUpperCase()}
       </Text>
       <Table highlightOnHover verticalSpacing="sm">
         <thead>
           <tr>
             <th>NOME</th>
-            <th>MENSAGENS ENVIADAS</th>
-            <th>LIGAÇÕES REALIZADAS</th>
-            <th>CONVERSAS EFETIVAS</th>
+            <th>CONTATO REALIZADO</th>
+            <th>CONTATO EFETIVO</th>
+            <th>LIGAÇÃO REALIZADA</th>
+            <th>LIGAÇÃO EFETIVA</th>
             <th>AGENDAMENTOS</th>
-            <th>TAXA DE CONVERSÃO</th>
+            <th>NO SHOW</th>
+            <th>EFICIÊNCIA</th>
           </tr>
         </thead>
         <tbody>{rows}</tbody>

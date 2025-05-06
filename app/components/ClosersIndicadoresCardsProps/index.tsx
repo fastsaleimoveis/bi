@@ -2,95 +2,87 @@
 
 import { Card, Group, Text, SimpleGrid, ThemeIcon } from '@mantine/core';
 import {
-  IconCalendarCancel,
   IconCalendarCheck,
   IconShoppingCartCheck,
-  IconPercentage,
   IconCurrencyDollar,
+  IconFileDollar,
+  IconHandClick,
+  IconX,
 } from '@tabler/icons-react';
 
-interface Closer {
-    reunioes_noshow: number;
-    reunioes_realizadas: number;
-    vendas_fechadas: number;
+interface Indicator {
+  label: string;
+  number: number | string;
+  icon: React.ReactNode;
+  color: string;
+  suffix?: string;
+}
+
+interface User {
+  name: string;
+  indicators: {
+    month: number;
+    year: number;
+    meetings_held: number;
+    in_negotiation: number;
+    lost: number;
+    accept_verbal: number;
+    link_sent: number;
+    sales: number;
     vgv: number;
-  }
-  
-  interface ClosersIndicadoresCardsProps {
-    data: Closer[];
-  }
-  
-  export const ClosersIndicadoresCards = ({ data }: ClosersIndicadoresCardsProps) => {
-    const total = data.reduce(
-      (acc, closer) => ({
-        reunioes_noshow: acc.reunioes_noshow + closer.reunioes_noshow,
-        reunioes_realizadas: acc.reunioes_realizadas + closer.reunioes_realizadas,
-        vendas_fechadas: acc.vendas_fechadas + closer.vendas_fechadas,
-        vgv: acc.vgv + closer.vgv,
-      }),
-      {
-        reunioes_noshow: 0,
-        reunioes_realizadas: 0,
-        vendas_fechadas: 0,
-        vgv: 0,
-      }
-    );
-  
-    const eficiencia =
-      total.reunioes_realizadas + total.reunioes_noshow > 0
-        ? Math.round((total.reunioes_realizadas / (total.reunioes_realizadas + total.reunioes_noshow)) * 100)
-        : 0;
-  
-    const indicadores: any[] = [
-      {
-        label: 'Reuniões NoShow',
-        value: total.reunioes_noshow,
-        icon: <IconCalendarCancel size={20} />,
-        color: 'red',
-      },
-      {
-        label: 'Reuniões Realizadas',
-        value: total.reunioes_realizadas,
-        icon: <IconCalendarCheck size={20} />,
-        color: 'green',
-      },
-      {
-        label: 'Vendas fechadas',
-        value: total.vendas_fechadas,
-        icon: <IconShoppingCartCheck size={20} />,
-        color: 'blue',
-      },
-      {
-        label: 'Eficiência',
-        value: eficiencia,
-        icon: <IconPercentage size={20} />,
-        color: 'indigo',
-        suffix: '%',
-      },
-      {
-        label: 'VGV total',
-        value: `R$ ${Number(total.vgv).toLocaleString('pt-BR')}`,
-        icon: <IconCurrencyDollar size={20} />,
-        color: 'orange',
-      },
-    ];
-  
-    return (
-      <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 5 }} spacing="lg">
-        {indicadores.map((item) => (
-          <Card key={item.label} withBorder shadow="sm" radius="md" p="lg">
-            <Group gap="sm">
-              <ThemeIcon variant="light" color={item.color} radius="xl" size="lg">
-                {item.icon}
-              </ThemeIcon>
-              <Text size="sm" c="dimmed">{item.label}</Text>
-            </Group>
-            <Text size="xl" fw={700} mt="md">
-              {item.value}{item.suffix ?? ''}
-            </Text>
-          </Card>
-        ))}
-      </SimpleGrid>
-    );
-  };
-  
+  }[];
+}
+
+interface ClosersIndicadoresCardsProps {
+  data: User[];
+}
+
+export const ClosersIndicadoresCards = ({ data }: ClosersIndicadoresCardsProps) => {
+  if (!data) return null;
+
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
+  return (
+    <div className="flex flex-col gap-10">
+      {data.map((user, index) => {
+        const indicator = user.indicators.find(
+          (ind) => ind.month === currentMonth && ind.year === currentYear
+        );
+        if (!indicator) return null;
+
+        const indicadores: Indicator[] = [
+          { label: 'Reunião Realizada', number: indicator.meetings_held || 0, icon: <IconCalendarCheck />, color: 'blue' },
+          { label: 'Em Negociação', number: indicator.in_negotiation || 0, icon: <IconHandClick />, color: 'yellow' },
+          { label: 'Perdido', number: indicator.lost || 0, icon: <IconX />, color: 'gray' },
+          { label: 'Aceite Verbal', number: indicator.accept_verbal || 0, icon: <IconFileDollar />, color: 'teal' },
+          { label: 'Link Pagamento', number: indicator.link_sent || 0, icon: <IconHandClick />, color: 'cyan' },
+          { label: 'Vendas', number: indicator.sales || 0, icon: <IconShoppingCartCheck />, color: 'green' },
+          { label: 'VGV', number: indicator.vgv.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), icon: <IconCurrencyDollar />, color: 'lime' },
+        ];
+
+        return (
+          <div key={index}>
+            <Text fw={700} fz="lg" mb={-6}>{user.name}</Text>
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 5 }} spacing="lg">
+              {indicadores.map((item) => (
+                <Card key={item.label} withBorder shadow="sm" radius="md" p="lg">
+                  <Group gap="sm">
+                    <ThemeIcon variant="light" color={item.color} radius="xl" size="lg">
+                      {item.icon}
+                    </ThemeIcon>
+                    <Text size="sm" c="dimmed">{item.label}</Text>
+                  </Group>
+                  <Text size="xl" fw={700} mt="md">
+                    {item.number}{item.suffix ?? ''}
+                  </Text>
+                </Card>
+              ))}
+            </SimpleGrid>
+          </div>
+        );
+      })}
+    </div>
+  );
+};

@@ -7,12 +7,12 @@ import { IndicadoresTabs } from '../IndicadoresTabs';
 
 
 export const DashboardComponent = () => {
-  const [data, setData] = useState<BiDashboard | null>(null);
+  const [data, setData] = useState<User[] | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     instance
-      .get('/bi-dashboard?type=operacional&month=5&year=2025')
+      .get('/collaborators')
       .then((res) => setData(res.data))
       .catch((err) => console.error('Erro ao carregar dashboard:', err))
       .finally(() => setLoading(false));
@@ -25,7 +25,10 @@ export const DashboardComponent = () => {
     <Container size="xl">
       <Stack py={12}>
         <Title order={2}>Dashboard Operacional</Title>
-        <IndicadoresTabs sdrData={data.sdrs} closersData={data.closers} consolidado={data.consolidado} />
+        <IndicadoresTabs
+          sdrData={data.filter(users => users.type && users.type.type === 'sdr')}
+          closersData={data.filter(users => users.type && users.type.type === 'sdr')}
+        />
 
         {/* <PerformanceTrendsChart data={data.grafico_tendencia} /> */}
       </Stack>

@@ -1,56 +1,5 @@
-interface BiDashboard{
-    closers:Closer[];
-    consolidado:Consolidado;
-    filters:Filters;
-    sdrs:Sdr[];
-  }
 
-  interface Closer{
-    agendamentos:number;
-    contatos_efetivos:number;
-    contatos_realizados:number;
-    eficiencia:number;
-    foto:string;
-    ligacoes_efetivas:number;
-    ligacoes_realizadas:number;
-    nome:string;
-    reunioes_noshow:number;
-    reunioes_realizadas:number;
-    vendas_fechadas:number;
-    vgv:number;
-  }
-
-  interface Sdr{
-    agendamentos:number;
-    contatos_efetivos:number;
-    contatos_realizados:number;
-    eficiencia:number;
-    foto:string;
-    ligacoes_efetivas:number;
-    ligacoes_realizadas:number;
-    nome:string;
-    reunioes_noshow:number;
-    reunioes_realizadas:number;
-    vendas_fechadas:number;
-    vgv:number;
-  }
-
-  interface Filters{
-    day:string | null;
-    month:string | null;
-    type:string | null;
-    year:string | null;
-  }
-
-  interface Consolidado{
-    agendamentos_mensais:number;
-    taxa_conversao:number;
-    total_closers:number;
-    total_sdrs:number;
-    vendas_mensais:number;
-    vgv_mensal:number;
-  }
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface User{
     active:boolean;
     email:string;

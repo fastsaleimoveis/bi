@@ -1,4 +1,4 @@
-import { Card, Text, Group, Stack } from '@mantine/core';
+import { Card } from '@mantine/core';
 
 interface VisaoGeralProps {
   total_sdrs: number;

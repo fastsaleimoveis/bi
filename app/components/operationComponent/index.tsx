@@ -9,9 +9,6 @@ import instance from '@/app/lib/axios';
 import { BiSdrCard } from '../biSdrCard';
 import { BiCloserCard } from '../biCloserCard';
 import { MetaProgress } from '../MetaProgress';
-import { Efficiency } from '../Efficiency';
-import { TotalComercial } from '../TotalComercial';
-import { LeadsOrigin } from '../LeadsOrigin';
 import Image from 'next/image';
 import Link from 'next/link';
 
