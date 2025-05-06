@@ -18,7 +18,7 @@ export const BiSdrCard = ({data, name}:BiSdrCardProps) => {
         {label:'Total Contatos', number:(data.effective_phone_calls || 0) + (data.effective_contacts || 0)},
         // {label:'Sem Resposta', number:data.no_answer || 0},
         {label:'Agendamentos', number:data.appointments || 0},
-        {label:'% Agendamentos', number:((data.appointments * 100) / (data.effective_contacts + data.effective_phone_calls)).toFixed(0)},
+        {label:'% Agendamentos', number:((data.appointments * 100) / (data.effective_contacts + data.effective_phone_calls)).toFixed(0) + '%'},
         // {label:'No Show', number:data.no_show || 0},
         // {label:'% No Show', number:data.appointments !== 0 ? (((data.no_show || 0) * 100) / data.appointments).toFixed(0) : 0},
     ]

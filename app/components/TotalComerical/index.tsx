@@ -64,8 +64,8 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
           ? (
               (totals.appointments * 100) /
               (totals.effective_contacts + totals.effective_phone_calls || 1)
-            ).toFixed(0)
-          : 0,
+            ).toFixed(0) + '%'
+          : 0 + '%',
     },
     // { label: 'No Show', number: totals.no_show },
     // {

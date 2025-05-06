@@ -34,7 +34,7 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
             style: 'currency',
             currency: 'BRL',
           })},
-        {label:'Eficiência', number:data.sales !== 0 ? (data.sales * 100) / data.meetings_held : 0},
+        {label:'Eficiência', number:data.sales !== 0 ? ((data.sales * 100) / data.meetings_held) + '%' : 0 + '%'},
     ]
 
     return(
