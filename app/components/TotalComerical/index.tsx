@@ -103,19 +103,19 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
   ];
 
   return (
-    <div className="w-full max-w-[680px] shadow-lg border border-gray-400 rounded-[20px] p-4 flex-1 h-full bg-gray-200 bor">
+    <div className="w-full max-w-[680px] shadow-lg border border-[#9CA3AF] rounded-[20px] p-4 flex-1 h-full bg-[#E5E7EB]">
       <div className="flex gap-4 items-center">
         <div>
-          <h5 className="text-green-800 font-bold text-[24px] mb-4">Total Comercial</h5>
+          <h5 className="	text-[#065F46] font-bold text-[24px] mb-4">Total Comercial</h5>
         </div>
       </div>
       <div className="flex justify-between gap-2 flex-wrap w-full">
         {dataNumbers.map((item, index) => (
           <div className="flex flex-col flex-1 min-w-[100px] " key={index}>
-            <label className="text-green-800 text-xs text-center mb-1 h-[15px]">
+            <label className="	text-[#065F46] text-xs text-center mb-1 h-[15px]">
               {item.label}
             </label>
-            <span className="border bg-white text-gray-600 font-bold text-center text-2xl rounded-lg w-full flex items-center justify-center h-[60px]">
+            <span className="border bg-white text-[#4B5563] font-bold text-center text-2xl rounded-lg w-full flex items-center justify-center h-[60px]">
               {item.number}
             </span>
           </div>

@@ -38,19 +38,19 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
     ]
 
     return(
-        <div className="w-full max-w-[680px] shadow-lg border border-gray-200 rounded-[20px] p-4 flex-1 h-full">
+        <div className="w-full max-w-[680px] shadow-lg border border-[#E5E7EB] rounded-[20px] p-4 flex-1 h-full">
             <div className="flex gap-4 items-center size-2/4">
                 <Avatar size={80} color="green" />
                 <div className="">
-                    <h5 className="text-green-600 font-bold text-[18px]">Closer</h5>
-                    <h2 className="text-green-800 font-bold text-[26px] -mt-2 whitespace-nowrap">{name}</h2>
+                    <h5 className="text-[#16A34A]font-bold text-[18px]">Closer</h5>
+                    <h2 className="text-[#065F46] font-bold text-[26px] -mt-2 whitespace-nowrap">{name}</h2>
                 </div>
             </div>
             <div className="flex justify-between gap-2 flex-wrap size-2/4 w-full">
                 {dataNumbers.map((item, index) => (
                     <div className="flex flex-col flex-1 min-w-[120px]" key={index}>
-                        <label className="text-green-800 text-xs text-center mb-1 h-[15px]">{item.label}</label>
-                        <span className="py-1 bg-green-200 border text-gray-600 font-bold text-center text-xl rounded-lg w-full flex items-center justify-center">{item.number}</span>
+                        <label className="text-[#065F46] text-xs text-center mb-1 h-[15px]">{item.label}</label>
+                        <span className="py-1 bg-[#BBF7D0] border text-[#4B5563] font-bold text-center text-xl rounded-lg w-full flex items-center justify-center">{item.number}</span>
                     </div>
                 ))}
             </div>

@@ -96,7 +96,7 @@ export const OperationComponent = () => {
             </div>
         </div>
 
-        <span className="block w-full h-px bg-green-700 mb-4"></span>
+        <span className="block w-full h-px bg-[#065F46] mb-4"></span>
 
         <div className="flex gap-12 h-full pb-20">
             <div className="w-[35%] flex flex-col gap-4 flex-wrap h-full">
