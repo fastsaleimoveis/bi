@@ -64,7 +64,7 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
           ? (
               (totals.appointments * 100) /
               (totals.effective_contacts + totals.effective_phone_calls || 1)
-            ).toFixed(0) + '%'
+            ).toFixed(1) + '%'
           : 0 + '%',
     },
     // { label: 'No Show', number: totals.no_show },
@@ -100,10 +100,11 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
         currency: 'BRL',
       }),
     },
+    {label:'Eficiência', number:totals.sales !== 0 ? ((totals.sales * 100) / totals.meetings_held).toFixed(1) + '%' : 0 + '%'},
   ];
 
   return (
-    <div className="w-full max-w-[680px] shadow-lg border border-[#9CA3AF] rounded-[20px] p-4 flex-1 h-full bg-[#E5E7EB]">
+    <div className="w-full max-w-[680px] shadow-lg border border-[#9CA3AF] rounded-[20px] p-4 flex-1 h-full bg-[#E5E7EB]  -mt-8">
       <div className="flex gap-4 items-center">
         <div>
           <h5 className="	text-[#065F46] font-bold text-[24px] mb-4">Total Comercial</h5>
@@ -111,7 +112,7 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
       </div>
       <div className="flex justify-between gap-2 flex-wrap w-full">
         {dataNumbers.map((item, index) => (
-          <div className="flex flex-col flex-1 min-w-[140px] " key={index}>
+          <div className="flex flex-col flex-1 min-w-[140px] max-w-[33%]" key={index}>
             <label className="	text-[#065F46] text-xs text-center mb-1 h-[15px]">
               {item.label}
             </label>
