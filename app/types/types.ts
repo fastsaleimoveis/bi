@@ -38,6 +38,7 @@
     in_negotiation:number;
     tag_not_sale:number;
     meetings_held:number;
+    total_mettings:number;
   }
 
   interface UserType{

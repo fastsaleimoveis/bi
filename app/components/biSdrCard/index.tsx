@@ -7,7 +7,7 @@ interface BiSdrCardProps{
 
 export const BiSdrCard = ({data, name}:BiSdrCardProps) => {
 
-
+    
     if (!data) return;
 
     const dataNumbers = [

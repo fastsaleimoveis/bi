@@ -12,6 +12,7 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
     if (!data) return;
 
     const dataNumbers = [
+        {label:'Reuniões Agendadas', number:data.total_mettings || 0},
         {label:'Reunião Realizada', number:data.meetings_held || 0},
         {label:'Em Negociação', number:(data.in_negotiation || 0).toLocaleString('pt-BR', {
             style: 'currency',
