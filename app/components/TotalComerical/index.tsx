@@ -76,29 +76,14 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
     //       : 0,
     // },
     { label: 'Reunião Realizada', number: totals.meetings_held },
-    { label: 'Em Negociação', number: totals.in_negotiation.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }) },
-    { label: 'Não Venda', number: totals.lost.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }) },
-    { label: 'Aceite Verbal', number: totals.accept_verbal.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }) },
-    { label: 'Link de Pagamento', number: totals.link_sent.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }) },
+    { label: 'Em Negociação', number: totals.in_negotiation.toLocaleString('pt-br', {minimumFractionDigits: 2}) },
+    { label: 'Não Venda', number: totals.lost.toLocaleString('pt-br', {minimumFractionDigits: 2}) },
+    { label: 'Aceite Verbal', number: totals.accept_verbal.toLocaleString('pt-br', {minimumFractionDigits: 2}) },
+    { label: 'Link de Pagamento', number: totals.link_sent.toLocaleString('pt-br', {minimumFractionDigits: 2}) },
     { label: 'Vendas', number: totals.sales },
     {
       label: 'Venda VGV',
-      number: totals.vgv.toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }),
+      number: totals.vgv.toLocaleString('pt-br', {minimumFractionDigits: 2}),
     },
     {label:'Eficiência', number:totals.sales !== 0 ? ((totals.sales * 100) / totals.meetings_held).toFixed(1) + '%' : 0 + '%'},
   ];

@@ -14,27 +14,12 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
     const dataNumbers = [
         {label:'Reuniões Agendadas', number:data.total_mettings || 0},
         {label:'Reunião Realizada', number:data.meetings_held || 0},
-        {label:'Em Negociação', number:(data.in_negotiation || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })},
-        {label:'Não Venda', number:(data.lost || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })},
-        {label:'Aceite Verbal', number:(data.accept_verbal || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })},
-        {label:'Link de Pagamento', number:(data.link_sent || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })},
+        {label:'Em Negociação', number:(data.in_negotiation || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
+        {label:'Não Venda', number:(data.lost || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
+        {label:'Aceite Verbal', number:(data.accept_verbal || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
+        {label:'Link de Pagamento', number:(data.link_sent || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Venda', number:data.sales || 0},
-        {label:'Venda Vgv', number:(data.vgv || 0).toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })},
+        {label:'Venda Vgv', number:(data.vgv || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Eficiência', number:data.sales !== 0 ? ((data.sales * 100) / data.meetings_held).toFixed(1) + '%' : 0 + '%'},
     ]
 
@@ -49,9 +34,9 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
             </div>
             <div className="flex justify-between gap-2 flex-wrap size-2/4 w-full">
                 {dataNumbers.map((item, index) => (
-                    <div className="flex flex-col flex-1 min-w-[120px]" key={index}>
+                    <div className="flex flex-col flex-1 min-w-[110px]" key={index}>
                         <label className="text-[#065F46] text-xs text-center mb-1 h-[15px]">{item.label}</label>
-                        <span className="py-1 bg-[#BBF7D0] border text-[#4B5563] font-bold text-center text-xl rounded-lg w-full flex items-center justify-center">{item.number}</span>
+                        <span className="py-1 bg-[#BBF7D0] border text-[#4B5563] font-bold text-center text-lg rounded-lg w-full flex items-center justify-center">{item.number}</span>
                     </div>
                 ))}
             </div>
