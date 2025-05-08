@@ -2,11 +2,12 @@ import { Avatar } from "@mantine/core"
 
 interface BiCloserCardProps{
     data:Indicators | null
-    name:string
+    name:string;
+    metas:Metas;
 }
 
 
-export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
+export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
 
 
     if (!data) return;
@@ -23,18 +24,59 @@ export const BiCloserCard = ({data, name}:BiCloserCardProps) => {
         {label:'Eficiência', number:data.sales !== 0 ? ((data.sales * 100) / data.meetings_held).toFixed(1) + '%' : 0 + '%'},
     ]
 
+    function getBusinessDaysUntilToday(): number {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        let businessDays = 0;
+    
+        for (let d = new Date(firstDay); d <= today; d.setDate(d.getDate() + 1)) {
+            const day = d.getDay();
+            if (day !== 0 && day !== 6) {
+                businessDays++;
+            }
+        }
+    
+        return businessDays;
+    }
+    
+    const diasUteis = getBusinessDaysUntilToday();
+    const metaCloser = metas.closers.find((closer) => closer.id === data.id);
+    
+    let cardColorClass = "border-gray-300 bg-gray-50";
+    let faltamReunioesHoje: number | null = null;
+    
+    if (metaCloser) {
+        const metaDiaria = metaCloser.reunioes_mes / metaCloser.dias_no_mes;
+        const metaAteHoje = Math.round(metaDiaria * diasUteis);
+        const realizadas = data.meetings_held || 0;
+    
+        if (realizadas >= metaAteHoje) {
+            cardColorClass = "border-green-400 bg-green-50";
+        } else {
+            cardColorClass = "border-red-400 bg-red-50";
+            faltamReunioesHoje = metaAteHoje - realizadas;
+        }
+    }
+
     return(
-        <div className="w-full max-w-[680px] shadow-lg border border-[#E5E7EB] rounded-[20px] p-4 flex-1 h-full">
-            <div className="flex gap-4 items-center size-2/4">
-                <Avatar size={80} color="green" />
-                <div className="">
+            <div className={`w-full max-w-[680px] shadow-lg border rounded-[20px] p-4 flex-1 h-auto relative ${cardColorClass}`}>
+
+            {faltamReunioesHoje && (
+                <div className="text-xs text-red-600 font-medium mt-1 absolute top-[5px] right-[20px]">
+                    Faltam <span className="font-semibold">{faltamReunioesHoje}</span> reuniões
+                </div>
+            )}
+
+            <div className="flex gap-4 items-center">
+                <Avatar size={60} color="green" />
+                <div className="flex gap-2 items-center">
                     <h5 className="text-[#16A34A] font-bold text-[18px]">Closer</h5>
-                    <h2 className="text-[#065F46] font-bold text-[26px] -mt-2 whitespace-nowrap">{name}</h2>
+                    <h2 className="text-[#065F46] font-bold text-[22px] whitespace-nowrap">{name}</h2>
                 </div>
             </div>
-            <div className="flex justify-between gap-2 flex-wrap size-2/4 w-full">
+            <div className="flex justify-between gap-1 flex-wrap w-full">
                 {dataNumbers.map((item, index) => (
-                    <div className="flex flex-col flex-1 min-w-[110px]" key={index}>
+                    <div className="flex flex-col flex-1 min-w-[130px]" key={index}>
                         <label className="text-[#065F46] text-xs text-center mb-1 h-[15px]">{item.label}</label>
                         <span className="py-1 bg-[#BBF7D0] border text-[#4B5563] font-bold text-center text-lg rounded-lg w-full flex items-center justify-center">{item.number}</span>
                     </div>

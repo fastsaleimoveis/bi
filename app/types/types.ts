@@ -45,3 +45,23 @@
     collaborator_id:number;
     type:string;
   }
+
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface Metas{
+    gerais:{
+      type:string;
+      label:string;
+      value:number;
+    }[];
+    sdrs:{
+      id:number;
+      contatos_efetivos_mes:number;
+      dias_no_mes:number;
+    }[];
+    closers:{
+      id:number;
+      reunioes_mes:number;
+      dias_no_mes:number;
+    }[];
+  }
