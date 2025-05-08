@@ -12,7 +12,7 @@ import Image from 'next/image';
 // import Link from 'next/link';
 import { TotalComercial } from '../TotalComerical';
 import { TrendComponent } from '../TrendComponent';
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from '@tabler/icons-react';
+import { IconArrowNarrowLeft, IconArrowNarrowRight, IconPlayerPause, IconPlayerPlay } from '@tabler/icons-react';
 
 
 const metas = {
@@ -57,6 +57,7 @@ export const OperationComponent = () => {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoSlide, setAutoSlide] = useState(true);
 
   useEffect(() => {
     const fetchData = () => {
@@ -74,16 +75,21 @@ export const OperationComponent = () => {
   
     const fetchInterval = setInterval(fetchData, 60 * 3000);
     const timeInterval = setInterval(() => setCurrentTime(new Date()), 1000);
-    const slideInterval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
-    }, 10000);
+  
+    let slideInterval: NodeJS.Timeout | null = null;
+    if (autoSlide) {
+      slideInterval = setInterval(() => {
+        setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
+      }, 10000);
+    }
   
     return () => {
       clearInterval(fetchInterval);
       clearInterval(timeInterval);
-      clearInterval(slideInterval);
+      if (slideInterval) clearInterval(slideInterval);
     };
-  }, []);
+  }, [autoSlide]);
+  
 
   if (loading) return <Loader />;
 
@@ -143,7 +149,7 @@ export const OperationComponent = () => {
 
   return (
     data &&
-    <div className="bg-white fixed w-full h-full overflow-hidden inset-0 py-2 px-4">
+    <div className="bg-[#fff] fixed w-full h-full overflow-hidden inset-0 py-2 px-4">
         <div className="flex items-center justify-between pb-2">
           <span className="w-[300px]">
             <Image
@@ -153,10 +159,10 @@ export const OperationComponent = () => {
               alt="Logo Fast Sale"
             />
             </span>
-            <h1 className="text-2xl text-gray-800 font-bold uppercase">Dashboard Comercial - {nomeMes}</h1>
+            <h1 className="text-2xl text-[#1F2937] font-bold uppercase">Dashboard Comercial - {nomeMes}</h1>
 
             <div className="flex justify-center gap-2">
-              <div className="text-right text-sm font-semibold text-gray-600 leading-tight">
+              <div className="text-right text-sm font-semibold text-[#4B5563] leading-tight">
                 <div>Atualizado: {lastUpdated?.toLocaleString('pt-BR', {
                   day: '2-digit',
                   month: 'long',
@@ -175,13 +181,23 @@ export const OperationComponent = () => {
                 })}</div>
               </div>
               <button
-                className={`px-4 py-1 rounded-full text-sm font-bold ${currentSlide === 0 ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                className={`px-4 py-1 rounded-full text-sm font-bold ${currentSlide === 0
+                  ? 'bg-[#059669] text-[#FFFFFF]'
+                  : 'bg-[#E5E7EB] text-[#1F2937]'}`}
                 onClick={() => setCurrentSlide(0)}
               >
                 <IconArrowNarrowLeft/>
               </button>
               <button
-                className={`px-4 py-1 rounded-full text-sm font-bold ${currentSlide === 1 ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                className="px-4 py-1 rounded-full text-sm font-bold bg-[#E5E7EB] text-[#1F2937]"
+                onClick={() => setAutoSlide(prev => !prev)}
+              >
+                {autoSlide ? <IconPlayerPause size={20} /> : <IconPlayerPlay size={20} />}
+              </button>
+              <button
+                className={`px-4 py-1 rounded-full text-sm font-bold ${currentSlide === 1
+                  ? 'bg-[#059669] text-[#FFFFFF]'
+                  : 'bg-[#E5E7EB] text-[#1F2937]'}`}
                 onClick={() => setCurrentSlide(1)}
               >
                 <IconArrowNarrowRight/>

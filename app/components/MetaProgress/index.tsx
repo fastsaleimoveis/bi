@@ -18,8 +18,8 @@ export const MetaProgress = ({ atingido, metas, atingidoAss }: MetaProgressProps
   
   return (
     <div className="flex flex-col gap-4">
-        <div className="p-4 shadow-lg border border-gray-200 rounded-[20px]">
-            <h3 className="text-gray-800 font-semibold mb-4 text-lg">Meta VGV</h3>
+        <div className="p-4 shadow-lg border border-[#E5E7EB] rounded-[20px]">
+            <h3 className="text-[#1F2937] font-semibold mb-4 text-lg">Meta VGV</h3>
             <BarChart
                 h={280}
                 data={[
@@ -68,8 +68,8 @@ export const MetaProgress = ({ atingido, metas, atingidoAss }: MetaProgressProps
                 withTooltip={false}
             />
         </div>
-        <div className="p-4 shadow-lg border border-gray-200 rounded-[20px]">
-            <h3 className="text-gray-800 font-semibold mb-4 text-lg">Meta Vendas</h3>
+        <div className="p-4 shadow-lg border border-[#E5E7EB] rounded-[20px]">
+            <h3 className="text-[#1F2937] font-semibold mb-4 text-lg">Meta Vendas</h3>
             <BarChart
                 h={280}
                 className="mt-6"

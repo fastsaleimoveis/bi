@@ -17,7 +17,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
 
   const rows = [
     {
-      icon: <IconBrandWhatsapp className="text-green-600" size={18} />,
+      icon: <IconBrandWhatsapp className="text-[#16A34A]" size={18} />,
       title: "WhatsApp",
       items: [
         { label: "Iniciado", number: data.contacts_made || 0 },
@@ -32,7 +32,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
       ],
     },
     {
-      icon: <IconPhoneCall className="text-blue-600" size={18} />,
+      icon: <IconPhoneCall className="text-[#2563EB]" size={18} />,
       title: "Ligações",
       items: [
         { label: "Realizada", number: data.phone_calls_made || 0 },
@@ -47,7 +47,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
       ],
     },
     {
-      icon: <IconUsersGroup className="text-yellow-600" size={18} />,
+      icon: <IconUsersGroup className="text-[#F59E0B]" size={18} />,
       title: "Total",
       items: [
         {
@@ -71,7 +71,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
       ],
     },
     {
-      icon: <IconCalendarCheck className="text-purple-600" size={18} />,
+      icon: <IconCalendarCheck className="text-[#8B5CF6]" size={18} />,
       title: "Agendamentos",
       items: [
         { label: "Total", number: data.escheduled || 0 },
@@ -107,16 +107,16 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
   const diasUteis = getBusinessDaysUntilToday();
   const metaColaborador = metas.sdrs.find((sdr) => sdr.id === data.id);
   
-  let cardColorClass = "border-gray-300 bg-gray-50";
+  let cardColorClass = "border-[#D1D5DB] bg-[#F9FAFB]";
   if (metaColaborador) {
     const metaDiaria = metaColaborador.contatos_efetivos_mes / metaColaborador.dias_no_mes;
     const metaAteHoje = Math.round(metaDiaria * diasUteis);
     const contatosEfetivos = (data.effective_contacts || 0) + (data.effective_phone_calls || 0);
   
     if (contatosEfetivos >= metaAteHoje) {
-      cardColorClass = "border-green-400 bg-green-50";
+      cardColorClass = "border-[#4ADE80] bg-[#ECFDF5]";
     } else {
-      cardColorClass = "border-red-400 bg-red-50";
+      cardColorClass = "border-[#F87171] bg-[#fecaca]";
     }
   }
 
@@ -139,14 +139,14 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
       <div className="flex gap-4 items-center mb-2">
         <Avatar size={40} color="green" />
         <div className="flex items-center gap-2">
-          <h5 className="text-green-600 font-bold text-[14px]">SDR</h5>
-          <h2 className="text-emerald-900 font-bold text-[20px] -mt-1 whitespace-nowrap">{name}</h2>
+          <h5 className="text-[#059669] font-bold text-[14px]">SDR</h5>
+          <h2 className="text-[#065F46] font-bold text-[20px] -mt-1 whitespace-nowrap">{name}</h2>
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
         {rows.map((row, i) => (
-          <div key={i} className="flex gap-4 bg-gray-100 rounded-xl p-1 shadow-sm">
+          <div key={i} className="flex gap-4 bg-[#F3F4F6] rounded-xl p-1 shadow-sm">
             <div className="flex items-center flex-col  mb-1 justify-center w-[100px]">
               {row.icon}
               <h4 className="text-xs font-semibold text-gray-700">{row.title}</h4>
@@ -154,8 +154,8 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
             <div className="flex gap-2 flex-wrap">
               {row.items.map((item, idx) => (
                 <div key={idx} className="flex flex-col flex-1 min-w-[80px]">
-                  <span className="text-xs text-gray-600 text-center">{item.label}</span>
-                  <span className="px-2 text-gray-800 font-bold text-center text-lg rounded-lg -mt-1">
+                  <span className="text-xs text-[#4B5563] text-center">{item.label}</span>
+                  <span className="px-2 text-[#1F2937] font-bold text-center text-lg rounded-lg -mt-1">
                     {item.number}
                   </span>
                 </div>
@@ -166,7 +166,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
       </div>
 
       {contatosFaltando && (
-            <div className="text-xs text-red-600 font-medium absolute top-[3px] right-[20px]">
+            <div className="text-xs text-[#DC2626] font-medium absolute top-[3px] right-[20px]">
                 Faltam <span className="font-semibold">{contatosFaltando}</span> contatos
             </div>
         )}

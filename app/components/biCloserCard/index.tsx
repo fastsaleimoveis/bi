@@ -42,7 +42,7 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
     const diasUteis = getBusinessDaysUntilToday();
     const metaCloser = metas.closers.find((closer) => closer.id === data.id);
     
-    let cardColorClass = "border-gray-300 bg-gray-50";
+    let cardColorClass = "border-[#D1D5DB] bg-[#F9FAFB]";
     let faltamReunioesHoje: number | null = null;
     
     if (metaCloser) {
@@ -51,9 +51,9 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
         const realizadas = data.meetings_held || 0;
     
         if (realizadas >= metaAteHoje) {
-            cardColorClass = "border-green-400 bg-green-50";
+            cardColorClass = "border-[#4ADE80] bg-[#ECFDF5]";
         } else {
-            cardColorClass = "border-red-400 bg-red-50";
+            cardColorClass = "border-[#F87171] bg-[#fecaca]";
             faltamReunioesHoje = metaAteHoje - realizadas;
         }
     }
@@ -62,7 +62,7 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
             <div className={`w-full max-w-[680px] shadow-lg border rounded-[20px] p-4 flex-1 h-auto relative ${cardColorClass}`}>
 
             {faltamReunioesHoje && (
-                <div className="text-xs text-red-600 font-medium mt-1 absolute top-[5px] right-[20px]">
+                <div className="text-xs text-[#DC2626] font-medium mt-1 absolute top-[5px] right-[20px]">
                     Faltam <span className="font-semibold">{faltamReunioesHoje}</span> reuniões
                 </div>
             )}

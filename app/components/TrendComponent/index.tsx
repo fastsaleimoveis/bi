@@ -81,10 +81,10 @@ export const TrendComponent = ({ data, metas }: TrendComponentProps) => {
   const atrasoReunioes = Math.max(metaReunioesAteHoje - totalReunioes, 0);
 
   return (
-    <div className="flex flex-col gap-6 text-gray-800">
+    <div className="flex flex-col gap-6 text-[#1F2937]">
       <CardBlock
         title="Time SDR"
-        icon={<IconUsersGroup size={24} className="text-green-700" />}
+        icon={<IconUsersGroup size={24} color="#15803D" />}
         highlightGreen={atrasoContatos === 0}
         stats={[
           { label: 'Realizado', value: totalContatosEfetivos, icon: <IconUserCheck size={26} /> },
@@ -98,7 +98,7 @@ export const TrendComponent = ({ data, metas }: TrendComponentProps) => {
 
       <CardBlock
         title="Time Closer"
-        icon={<IconUsersGroup size={24} className="text-blue-700" />}
+        icon={<IconUsersGroup size={24}  color="#1D4ED8" />}
         highlightGreen={atrasoReunioes === 0}
         stats={[
           { label: 'Realizado', value: totalReunioes, icon: <IconUserCheck size={26} /> },
@@ -126,8 +126,8 @@ const CardBlock = ({
 }) => (
   <div className={`rounded-xl p-6 shadow-sm border transition-all duration-300 ${
     highlightGreen
-      ? 'bg-green-50 border-green-300'
-      : 'bg-red-50 border-red-300'
+      ? 'border-[#86EFAC] bg-[#DCFCE7]'
+      : 'border-[#FCA5A5] bg-[#fecaca]'
   }`}>
     <div className="flex items-center gap-3 mb-5">
       {icon}
@@ -139,8 +139,8 @@ const CardBlock = ({
           key={i}
           className={`flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-200 ${
             stat.highlight
-              ? 'border-red-500 bg-red-100 text-red-800'
-              : 'border-gray-200 bg-white'
+              ? 'border-[#EF4444] bg-[#FEE2E2] text-[#991B1B]'
+              : 'border-[#E5E7EB] bg-[#FFFFFF]'
           }`}
         >
           {stat.icon && <div>{stat.icon}</div>}
