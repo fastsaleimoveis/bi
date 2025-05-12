@@ -95,8 +95,7 @@ export const OperationComponent = () => {
 
   const now = new Date();
   const atingido = data
-    ?.filter(user => user.type?.type === 'closer')
-    .map(user => user.indicators.find(ind =>
+    ?.map(user => user.indicators.find(ind =>
       ind.month === now.getMonth() + 1 &&
       ind.year === now.getFullYear()
     ))
@@ -104,8 +103,7 @@ export const OperationComponent = () => {
     .reduce((sum, ind) => sum + (ind?.vgv || 0), 0) || 0;
 
   const atingidoAss = data
-    ?.filter(user => user.type?.type === 'closer')
-    .map(user => user.indicators.find(ind =>
+    ?.map(user => user.indicators.find(ind =>
       ind.month === now.getMonth() + 1 &&
       ind.year === now.getFullYear()
     ))
@@ -253,10 +251,10 @@ export const OperationComponent = () => {
               <MetaProgress metas={metas} atingido={atingido} atingidoAss={atingidoAss}/>
             </div>
             <div className="w-[30%] pt-[18px]">
-              <TrendComponent metas={metas} atingido={atingido} atingidoAss={atingidoAss} data={data.filter(users => users.type)}/>
+              <TrendComponent metas={metas} atingido={atingido} atingidoAss={atingidoAss} data={data}/>
             </div>
             <div className="w-[40%]">
-              <TotalComercial data={data.filter(users => users.type)}/>
+              <TotalComercial data={data}/>
             </div>
           </div>
         )}
