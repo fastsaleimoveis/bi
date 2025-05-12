@@ -93,6 +93,8 @@ export const OperationComponent = () => {
 
   if (loading) return <Loader />;
 
+
+
   const now = new Date();
   const atingido = data
     ?.filter(user => user.id !== 10)
@@ -256,7 +258,7 @@ export const OperationComponent = () => {
               <TrendComponent metas={metas} atingido={atingido} atingidoAss={atingidoAss} data={data}/>
             </div>
             <div className="w-[40%]">
-              <TotalComercial data={data}/>
+              <TotalComercial data={data?.filter(user => user.id !== 10)}/>
             </div>
           </div>
         )}
