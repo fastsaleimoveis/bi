@@ -95,7 +95,8 @@ export const OperationComponent = () => {
 
   const now = new Date();
   const atingido = data
-    ?.map(user => user.indicators.find(ind =>
+    ?.filter(user => user.id !== 10)
+    .map(user => user.indicators.find(ind =>
       ind.month === now.getMonth() + 1 &&
       ind.year === now.getFullYear()
     ))
@@ -103,7 +104,8 @@ export const OperationComponent = () => {
     .reduce((sum, ind) => sum + (ind?.vgv || 0), 0) || 0;
 
   const atingidoAss = data
-    ?.map(user => user.indicators.find(ind =>
+    ?.filter(user => user.id !== 10)
+    .map(user => user.indicators.find(ind =>
       ind.month === now.getMonth() + 1 &&
       ind.year === now.getFullYear()
     ))
