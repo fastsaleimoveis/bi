@@ -105,7 +105,7 @@ export const BiSdrCard = ({ data, name, metas }: BiSdrCardProps) => {
   }
 
   const diasUteis = getBusinessDaysUntilToday();
-  const metaColaborador = metas.sdrs.find((sdr) => sdr.id === data.id);
+  const metaColaborador = metas.sdrs.find((sdr) => sdr.id === data.collaborator_id);
   
   let cardColorClass = "border-[#D1D5DB] bg-[#F9FAFB]";
   if (metaColaborador) {

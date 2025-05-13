@@ -16,7 +16,7 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
         {label:'Reuniões Agendadas', number:data.total_mettings || 0},
         {label:'Reunião Realizada', number:data.meetings_held || 0},
         {label:'Em Negociação', number:(data.in_negotiation || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
-        {label:'Não Venda', number:(data.lost || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
+        {label:'Não Venda', number:(data.tag_not_sale || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Aceite Verbal', number:(data.accept_verbal || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Link de Pagamento', number:(data.link_sent || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Venda', number:data.sales || 0},
@@ -40,11 +40,13 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
     }
     
     const diasUteis = getBusinessDaysUntilToday();
-    const metaCloser = metas.closers.find((closer) => closer.id === data.id);
+    const metaCloser = metas.closers.find((closer) => closer.id === data.collaborator_id);
     
     let cardColorClass = "border-[#D1D5DB] bg-[#F9FAFB]";
     let faltamReunioesHoje: number | null = null;
     
+    console.log(data)
+
     if (metaCloser) {
         const metaDiaria = metaCloser.reunioes_mes / metaCloser.dias_no_mes;
         const metaAteHoje = Math.round(metaDiaria * diasUteis);

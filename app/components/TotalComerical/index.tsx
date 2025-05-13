@@ -23,6 +23,7 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
     effective_phone_calls: 0,
     no_answer: 0,
     appointments: 0,
+    tag_not_sale:0,
     no_show: 0,
     escheduled:0,
   };
@@ -103,7 +104,7 @@ export const TotalComercial = ({ data }: TotalComercialProps) => {
         },
         {
           label: 'Não Venda',
-          number: totals.lost.toLocaleString('pt-br', {
+          number: totals.tag_not_sale.toLocaleString('pt-br', {
             minimumFractionDigits: 2,
           }),
         },
