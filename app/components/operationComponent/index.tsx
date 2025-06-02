@@ -80,7 +80,7 @@ export const OperationComponent = () => {
     if (autoSlide) {
       slideInterval = setInterval(() => {
         setCurrentSlide((prev) => (prev === 0 ? 1 : 0));
-      }, 5000);
+      }, 25000);
     }
   
     return () => {

@@ -21,7 +21,7 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
         {label:'Link de Pagamento', number:(data.link_sent || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
         {label:'Venda', number:data.sales || 0},
         {label:'Venda Vgv', number:(data.vgv || 0).toLocaleString('pt-br', {minimumFractionDigits: 2})},
-        {label:'Eficiência', number:data.sales !== 0 ? ((data.sales * 100) / data.meetings_held).toFixed(1) + '%' : 0 + '%'},
+        {label:'Eficiência', number:(data.sales !== 0 && data.meetings_held !== 0) ? ((data.sales * 100) / data.meetings_held).toFixed(1) + '%' : 0 + '%'},
     ]
 
     function getBusinessDaysUntilToday(): number {
@@ -44,8 +44,6 @@ export const BiCloserCard = ({data, name, metas}:BiCloserCardProps) => {
     
     let cardColorClass = "border-[#D1D5DB] bg-[#F9FAFB]";
     let faltamReunioesHoje: number | null = null;
-    
-    console.log(data)
 
     if (metaCloser) {
         const metaDiaria = metaCloser.reunioes_mes / metaCloser.dias_no_mes;

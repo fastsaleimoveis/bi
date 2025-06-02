@@ -1,0 +1,38 @@
+.f-wrapper{
+    border-bottom:solid 1px #cdcdcd;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+.initial-row{
+    display:flex;
+    align-items: center;
+    gap:8px;
+}
+
+.item-box{
+    padding:3px 10px;
+    background-color: #cdcdcd;
+    border-radius: 10px;
+    display:flex;
+    align-items: center;
+    gap:5px;
+    width:100px; 
+    justify-content: space-between;
+}
+
+.item-box h3{
+    font-size:12px;
+    font-weight:600;
+}
+
+.item-box p{
+    font-size: 16px;
+    font-weight:600;
+}
+
+.sequence-line{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}

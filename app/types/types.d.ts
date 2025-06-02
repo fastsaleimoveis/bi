@@ -65,3 +65,69 @@
       dias_no_mes:number;
     }[];
   }
+
+  interface TopPage{
+    url: string
+    total: number
+  }
+  
+  interface Flow{
+    sequence: string[]
+    count: number
+  }
+  
+  interface AccessByHour{
+    hour: number
+    total: number
+  }
+  
+  interface EngajamentoData{
+    top_pages: TopPage[]
+    by_user_type: Record<string, number>
+    flows: Flow[]
+    access_by_hour: AccessByHour[]
+  }
+
+  interface AfidItem{
+    afid: string
+    name: string
+    total: number
+    percent: number
+  }
+  
+  interface AfOriginData{
+    aforigin: string
+    total: number
+  }
+  
+  interface AfTypeData{
+    aftype: string
+    total: number
+  }
+  
+  interface CouponAnalytics{
+    coupon: string
+    total: number
+    conversions: number
+    conversion_rate: number
+  }
+  
+  interface FunnelByAfidItem {
+    name: string | null
+    step_registre_se: number
+    step_passo_2: number
+    step_passo_3: number
+    step_cadastro_finalizado: number
+    step_carrinho: number
+    step_checkout: number
+    step_compra: number
+  }
+  
+
+interface AffiliateSummaryData{
+    afids: AfidItem[]
+    aforigins: AfOriginData[]
+    aftypes: AfTypeData[]
+    coupons: CouponAnalytics[]
+    funnels_by_afid: FunnelByAfidItem[]
+  }
