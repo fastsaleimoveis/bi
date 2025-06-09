@@ -17,36 +17,41 @@ import { IconArrowNarrowLeft, IconArrowNarrowRight, IconPlayerPause, IconPlayerP
 
 const metas = {
   gerais: [
-    { type: 'all', label: 'VGV', value: 107000 },
-    { type: 'all', label: 'Assinaturas', value: 36 },
+    { type: 'all', label: 'VGV', value: 100736 },
+    { type: 'all', label: 'Assinaturas', value: 32 },
   ],
   sdrs: [
     {
       id: 14,
-      contatos_efetivos_mes: 450,
-      dias_no_mes: 22
+      contatos_efetivos_mes: 416,
+      dias_no_mes: 21
     },
     {
       id: 15,
-      contatos_efetivos_mes: 450,
-      dias_no_mes: 22
+      contatos_efetivos_mes: 416,
+      dias_no_mes: 21
+    },
+    {
+      id: 7,
+      contatos_efetivos_mes: 416,
+      dias_no_mes: 21
     }
   ],
   closers: [
     {
       id: 9,
-      reunioes_mes: 72,
-      dias_no_mes: 22
+      reunioes_mes: 66,
+      dias_no_mes: 21
     },
     {
       id: 5,
-      reunioes_mes: 72,
-      dias_no_mes: 22
+      reunioes_mes: 66,
+      dias_no_mes: 21
     },
     {
       id: 8,
-      reunioes_mes: 72,
-      dias_no_mes: 22
+      reunioes_mes: 66,
+      dias_no_mes: 21
     }
   ]
 };
@@ -120,34 +125,34 @@ export const OperationComponent = () => {
     ];
     const nomeMes = meses[now.getMonth()];
 
-    const mockData = {
-      accept_verbal:100,
-      appointments:100,
-      collaborator_id:100,
-      contacts_made:100,
-      effective_contacts:100,
-      effective_phone_calls:100,
-      efficiency:100,
-      id:999,
-      link_sent:100,
-      meetigs_held:100,
-      month:5,
-      no_show:100,
-      phone_calls_made:100,
-      sales:100,
-      vgv:100,
-      year:2025,
-      rescheduled:100,
-      escheduled:100,
-      future_return:100,
-      no_answer:100,
-      lost:100,
-      reschedule:100,
-      in_negotiation:100,
-      tag_not_sale:100,
-      meetings_held:100,
-      total_mettings:100,
-    }
+    // const mockData = {
+    //   accept_verbal:100,
+    //   appointments:100,
+    //   collaborator_id:100,
+    //   contacts_made:100,
+    //   effective_contacts:100,
+    //   effective_phone_calls:100,
+    //   efficiency:100,
+    //   id:999,
+    //   link_sent:100,
+    //   meetigs_held:100,
+    //   month:5,
+    //   no_show:100,
+    //   phone_calls_made:100,
+    //   sales:100,
+    //   vgv:100,
+    //   year:2025,
+    //   rescheduled:100,
+    //   escheduled:100,
+    //   future_return:100,
+    //   no_answer:100,
+    //   lost:100,
+    //   reschedule:100,
+    //   in_negotiation:100,
+    //   tag_not_sale:100,
+    //   meetings_held:100,
+    //   total_mettings:100,
+    // }
 
   return (
     data &&
@@ -227,9 +232,9 @@ export const OperationComponent = () => {
                   );
                 })}
               
+                {/* <BiSdrCard metas={metas} data={mockData || null} name={'Vago'} />
                 <BiSdrCard metas={metas} data={mockData || null} name={'Vago'} />
-                <BiSdrCard metas={metas} data={mockData || null} name={'Vago'} />
-                <BiSdrCard metas={metas} data={mockData || null} name={'Vago'} />
+                <BiSdrCard metas={metas} data={mockData || null} name={'Vago'} /> */}
               </div>
               <div className="w-[30%] flex flex-col gap-4 h-full">
                 {data
